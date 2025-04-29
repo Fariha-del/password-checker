@@ -1,0 +1,37 @@
+import string
+
+def check_password_strength(password):
+    suggestions = []
+    strength = "Strong"
+
+    if len(password) < 8:
+        suggestions.append("Make your password at least 8 characters long.")
+        strength = "Weak"
+
+    if not any(char.islower() for char in password):
+        suggestions.append("Add lowercase letters.")
+        strength = "Medium" if strength != "Weak" else "Weak"
+
+    if not any(char.isupper() for char in password):
+        suggestions.append("Add uppercase letters.")
+        strength = "Medium" if strength != "Weak" else "Weak"
+
+    if not any(char.isdigit() for char in password):
+        suggestions.append("Include numbers.")
+        strength = "Medium" if strength != "Weak" else "Weak"
+
+    if not any(char in string.punctuation for char in password):
+        suggestions.append("Include special characters (e.g. !, @, #, etc.).")
+        strength = "Medium" if strength != "Weak" else "Weak"
+
+    print(f"\nPassword Strength: {strength}")
+    if suggestions:
+        print("Suggestions to improve your password:")
+        for tip in suggestions:
+            print(f"- {tip}")
+    else:
+        print("Your password looks great!")
+
+# Example
+user_password = input("Enter your password: ")
+check_password_strength(user_password)
